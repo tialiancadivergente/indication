@@ -4,6 +4,17 @@ import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
+type BuzzleadWindow = Window & {
+  campaignId?: string;
+  buzzlead_root?: string;
+  inicializeWidget?: () => void;
+  setEventsToOpenModal?: () => void;
+  loadModalPlugin?: () => void;
+  buzzleadEventsReady?: boolean;
+  buzzleadModalReady?: boolean;
+  jQuery?: unknown;
+};
+
 export default function Home() {
   const [isMounted, setIsMounted] = useState(false);
 
@@ -12,19 +23,51 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isMounted || !document.getElementById("buzzlead-root")) {
+    const root = document.getElementById("buzzlead-root");
+
+    if (!isMounted || !root) {
       return;
     }
 
-    document.getElementById("buzzlead-widget-script")?.remove();
+    const windowWithBuzzlead = window as BuzzleadWindow;
+    windowWithBuzzlead.campaignId = "ZX0P";
+    windowWithBuzzlead.buzzlead_root = "buzzlead-root";
 
-    const windowWithCampaign = window as Window & { campaignId?: string };
-    windowWithCampaign.campaignId = "ZX0P";
+    const initializeBuzzlead = () => {
+      windowWithBuzzlead.inicializeWidget?.();
+
+      if (!windowWithBuzzlead.buzzleadEventsReady) {
+        windowWithBuzzlead.setEventsToOpenModal?.();
+        windowWithBuzzlead.buzzleadEventsReady = true;
+      }
+
+      if (
+        windowWithBuzzlead.jQuery &&
+        windowWithBuzzlead.loadModalPlugin &&
+        !windowWithBuzzlead.buzzleadModalReady
+      ) {
+        windowWithBuzzlead.loadModalPlugin();
+        windowWithBuzzlead.buzzleadModalReady = true;
+      }
+    };
+
+    if (windowWithBuzzlead.inicializeWidget) {
+      initializeBuzzlead();
+      return;
+    }
+
+    const existingScript = document.getElementById("buzzlead-widget-script");
+
+    if (existingScript) {
+      existingScript.addEventListener("load", initializeBuzzlead, { once: true });
+      return;
+    }
 
     const script = document.createElement("script");
     script.id = "buzzlead-widget-script";
     script.src = "https://static.buzzlead.com.br/widget.js";
     script.async = true;
+    script.addEventListener("load", initializeBuzzlead, { once: true });
     document.body.appendChild(script);
   }, [isMounted]);
 
