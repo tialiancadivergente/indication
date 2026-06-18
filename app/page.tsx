@@ -113,8 +113,8 @@ export default function Home() {
             Indique amigos para a Aliança e transforme sua história em recompensas exclusivas.
           </p>
           {isMounted && (
-            <div className="mt-8 flex w-full justify-center">
-              <div id="buzzlead-root" className="min-h-screen w-full max-w-md" />
+            <div className="">
+              <div id="buzzlead-root" />
             </div>
           )}
         </div>
