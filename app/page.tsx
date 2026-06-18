@@ -12,9 +12,11 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    if (!isMounted || document.getElementById("buzzlead-widget-script")) {
+    if (!isMounted || !document.getElementById("buzzlead-root")) {
       return;
     }
+
+    document.getElementById("buzzlead-widget-script")?.remove();
 
     const windowWithCampaign = window as Window & { campaignId?: string };
     windowWithCampaign.campaignId = "ZX0P";
@@ -26,8 +28,19 @@ export default function Home() {
     document.body.appendChild(script);
   }, [isMounted]);
 
+  const handleClick = () => {    
+    setTimeout(() => {
+      const element = document.getElementById("hero")
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" })
+      } else {
+        console.error("Elemento com id 'cadastro' não encontrado")
+      }
+    }, 100)
+  }
+
   return (
-    <main className="relative min-h-screen overflow-hidden bg-custom-background text-custom-foreground">
+    <main className="relative min-h-screen overflow-x-hidden bg-custom-background text-custom-foreground">
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 z-10 h-96"
@@ -45,18 +58,22 @@ export default function Home() {
       />
 
       <section className="bg-custom-background px-6 pb-20 pt-20 sm:px-8 sm:pb-24">
-        <div className="mx-auto flex max-w-4xl flex-col items-center text-center gap-10">
-          <div className="text-lg text-white">
+        <div className="mx-auto flex max-w-4xl flex-col items-center text-center gap-0 lg:gap-10">
+          <div className="text-lg text-white mb-6 lg:mb-0">
             <Image src="/images/icon-ad.png" alt="Aliança Divergente" width={40} height={68} />
           </div>
-          <h1 className="font-spectral text-4xl font-bold uppercase italic tracking-tight text-custom-foreground sm:text-[80px]">
+          <h1 className="font-spectral text-4xl font-bold uppercase italic tracking-tight text-custom-foreground lg:text-[80px]">
             Você pode inspirar
           </h1>
-          <span className="font-spectral text-4xl font-bold uppercase tracking-tight text-custom-primary-gold sm:text-[80px]">novos aliados</span>
-          <p className="mt-5 max-w-xl font-spectral text-xl italic text-custom-muted letter">
+          <span className="font-spectral text-4xl font-bold uppercase tracking-tight text-custom-primary-gold lg:text-[80px]">novos aliados</span>
+          <p id="hero" className="mt-5 max-w-xl font-spectral text-base lg:text-xl italic text-custom-muted letter">
             Indique amigos para a Aliança e transforme sua história em recompensas exclusivas.
           </p>
-          {isMounted && <div id="buzzlead-root" />}
+          {isMounted && (
+            <div className="mt-8 flex w-full justify-center">
+              <div id="buzzlead-root" className="min-h-screen w-full max-w-md" />
+            </div>
+          )}
         </div>
 
         <div
@@ -68,8 +85,8 @@ export default function Home() {
         />
 
         <div className="mx-auto max-w-4xl">
-          <h2 className="font-spectral text-[56px] leading-none text-white font-extrabold tracking-tighter">
-            É <span className="text-custom-primary-gold">simples e rápido</span> fazer sua <br /> indicação.
+          <h2 className="font-spectral text-[31px] lg:text-[56px] leading-none text-white font-extrabold tracking-tighter">
+            É <span className="text-custom-primary-gold">simples e rápido</span> fazer sua <br className="hidden lg:block" /> indicação.
           </h2>
           <p className="my-6 font-spectral text-base text-white">Veja como funciona:</p>
 
@@ -103,7 +120,7 @@ export default function Home() {
         />
 
         <div className="mx-auto max-w-4xl flex flex-col gap-6">
-          <p className="font-spectral text-[32px] text-white font-extrabold"><span className="text-custom-primary-gold">O segredo?</span> Convide com verdade.</p>
+          <p className="font-spectral text-[22px] lg:text-[32px] text-white font-extrabold"><span className="text-custom-primary-gold">O segredo?</span> Convide com verdade.</p>
           <p className="font-spectral text-base text-white">Conte sua história, mostre coerência e resgate uma pessoa por vez. Seja o seu
             cônjuge, amigo ou um colega de trabalho que está pronto para fazer parte da Aliança.</p>
           <p className="font-spectral text-base text-white">Você está no caminho da evolução, e agora pode abrir a possibilidade de alguém começar a
@@ -117,10 +134,10 @@ export default function Home() {
           <p className="font-special-elite text-xs uppercase tracking-widest text-custom-primary-gold">
             O que você pode conquistar
           </p>
-          <h2 className="mt-3 font-spectral text-[56px] font-extrabold leading-none text-custom-foreground">
-            Quanto mais você indica,
-            <span className="block text-custom-primary-gold">
-              mais você ganha.
+          <h2 className="mt-3 font-spectral text-[31px] lg:text-[56px] font-extrabold leading-none text-custom-foreground">
+            Quanto mais você indica, {" "}
+            <span className="text-custom-primary-gold inline lg:block">
+               mais você ganha.
             </span>
           </h2>
           <p className="mt-8 font-spectral text-base text-white">
@@ -134,13 +151,13 @@ export default function Home() {
                 <div className="w-5 h-0.5 bg-custom-primary-gold" />
                 <p className="font-special-elite text-xs uppercase tracking-widest text-custom-primary-gold">POR INDICAÇÕES</p>
               </div>
-              <h3 className="font-spectral text-3xl font-extrabold text-custom-foreground flex items-center gap-2 mt-5">
+              <h3 className="font-spectral text-[28px] lg:text-3xl font-extrabold text-custom-foreground flex items-center gap-2 mt-5">
                 Por indicações
                 <ArrowRight size={24} className="font-extrabold" />
               </h3>
 
               <div className="mt-6 space-y-8">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-white">
                       <span className="text-custom-primary-gold uppercase">5 indicações válidas</span> (fichas preenchidas e contato do comercial realizado)
@@ -157,7 +174,7 @@ export default function Home() {
 
                 <div className="h-[1px] w-full bg-[#1f5154]" />
 
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col lg:flex-row items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-white">
                       <span className="text-custom-primary-gold uppercase">10 indicações válidas</span> (fichas preenchidas e contato do comercial realizado)
@@ -178,13 +195,13 @@ export default function Home() {
                 <div className="w-5 h-0.5 bg-custom-primary-gold" />
                 <p className="font-special-elite text-xs uppercase tracking-widest text-custom-primary-gold">Por indicações convertidas</p>
               </div>
-              <h3 className="font-spectral text-3xl font-extrabold text-custom-foreground flex items-center gap-2 mt-5">
+              <h3 className="font-spectral text-[28px] lg:text-3xl font-extrabold text-custom-foreground flex items-center gap-2 mt-5">
                 Por indicações convertidas
                 <ArrowRight size={24} className="font-extrabold" />
               </h3>
 
               <div className="mt-6 space-y-8">
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-custom-primary-gold uppercase">
                       3 conversões
@@ -200,7 +217,7 @@ export default function Home() {
 
                 <div className="h-[1px] w-full bg-[#1f5154]" />
 
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-custom-primary-gold uppercase">
                       4 conversões
@@ -216,7 +233,7 @@ export default function Home() {
 
                 <div className="h-[1px] w-full bg-[#1f5154]" />
 
-                <div className="flex items-center justify-between gap-4">
+                <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-custom-primary-gold uppercase">
                       8 conversões
@@ -237,6 +254,7 @@ export default function Home() {
           <div className="mt-8 flex justify-center">
             <button
               type="button"
+              onClick={handleClick}
               className="bg-custom-primary-gold min-h-[60px] w-[228px] px-8 py-3 font-special-elite text-base font-bold uppercase tracking-widest text-custom-primary-foreground"
             >
               Quero Ganhar
@@ -250,7 +268,7 @@ export default function Home() {
           <p className="font-special-elite text-xs uppercase tracking-widest text-custom-primary-gold">
             Como funciona
           </p>
-          <h2 className="mt-6 font-spectral text-[56px] font-extrabold leading-8 text-custom-foreground">
+          <h2 className="mt-6 font-spectral text-[31px] lg:text-[56px] font-extrabold leading-8 text-custom-foreground">
             Direto ao <span className="text-custom-primary-gold">ponto.</span>
           </h2>
 
@@ -327,8 +345,8 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="mt-40 text-center">
-            <h2 className="font-spectral text-[64px] font-extrabold leading-none text-custom-foreground">
+          <div className="mt-20 lg:mt-40 text-center">
+            <h2 className="font-spectral text-[35px] lg:text-[64px] font-extrabold leading-none text-custom-foreground">
               Pronto para
               <span className="block text-custom-primary-gold">
                 indicar e ganhar?
@@ -340,6 +358,7 @@ export default function Home() {
             </p>
             <button
               type="button"
+              onClick={handleClick}
               className="mt-10 bg-custom-primary-gold px-8 py-3 min-h-[60px] min-w-[330px] font-special-elite text-base uppercase tracking-widest text-[#07242C]"
             >
               Quero indicar e ganhar

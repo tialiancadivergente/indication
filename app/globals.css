@@ -2,6 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+#buzzlead-root,
+#buzzlead-root > div,
+#buzzlead-root iframe {
+  max-width: 100% !important;
+}
+
+#buzzlead-root iframe {
+  display: block;
+  width: 100% !important;
+  border: 0;
+}
+
 
 @layer components {
   .btn-primary {

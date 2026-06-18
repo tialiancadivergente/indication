@@ -49,9 +49,9 @@ const specialElite = Special_Elite({
 })
 
 export const metadata: Metadata = {
-  title: "O Resgate dos Otimistas - Diagnóstico de Dependência Emocional",
+  title: "Aliança Divergente - Indique e Ganhe",
   description:
-    "Faça seu diagnóstico de dependência emocional gratuito e descubra como aumentar seu nível de permissão.",
+    "Indique e Ganhe com a Aliança Divergente. Ganhe prêmios exclusivos para você e para quem você indica.",
   icons: {
     icon: '/images/cropped-Alianca-Divergente-Logotipo-Favicon-32x32.png',
     shortcut: '/images/cropped-Alianca-Divergente-Logotipo-Favicon-32x32.png',
