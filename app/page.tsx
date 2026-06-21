@@ -253,8 +253,8 @@ export default function Home() {
                       Boné Permissão Alta
                     </p>
                   </div>
-                  <div className="min-w-[200px] w-[200px] h-[130px] rounded-sm">
-                    <Image src="/images/5.png" alt="Aliança Divergente" width={200} height={130} />
+                  <div className="min-w-[200px] w-[200px] h-[136px] rounded-sm">
+                    <Image src="/images/3.png" alt="Aliança Divergente" width={200} height={136} />
                   </div>
                 </div>
 
@@ -269,8 +269,8 @@ export default function Home() {
                       Pense Comigo com mentor — você escolhe entre Cida, Jordão e Ramon
                     </p>
                   </div>
-                  <div className="min-w-[200px] w-[200px] h-[130px] rounded-sm">
-                    <Image src="/images/5.png" alt="Aliança Divergente" width={200} height={130} />
+                  <div className="min-w-[200px] w-[200px] h-[165px] rounded-sm">
+                    <Image src="/images/4.png" alt="Aliança Divergente" width={200} height={165} />
                   </div>
                 </div>
 
