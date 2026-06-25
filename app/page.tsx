@@ -247,7 +247,7 @@ export default function Home() {
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                   <div className="">
                     <p className="font-spectral text-xs tracking-widest font-semibold text-custom-primary-gold uppercase">
-                      3 conversões
+                      2 conversões
                     </p>
                     <p className="mt-2 font-raleway text-sm leading-6 text-custom-muted">
                       Boné Permissão Alta
